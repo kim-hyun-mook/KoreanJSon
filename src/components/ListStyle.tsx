@@ -4,14 +4,17 @@ export const ListStyle = styled.ul`
   display: flex;
   justify-content: space-between;
   flex-flow: wrap;
+  margin: 0;
+  padding: 0 20px;
+  box-sizing: border-box;
   & > li {
-    width: 30%;
+    width: 29%;
     list-style: none;
     padding: 10px 20px;
     border: solid 1px #e1e1e1;
     border-radius: 4px;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 50px;
+    position: relative;
   }
   &:first-child {
     margin-right: 0;

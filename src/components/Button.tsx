@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import CloseBtnImage from "../images/CloseBtn.png";
 
 // 타입 정의
 type ButtonProps = {
@@ -13,16 +14,24 @@ type ButtonProps = {
     | "light"
     | "dark";
   variant?: "solid" | "outlined" | "dashed" | "text" | "link";
-  children: React.ReactNode;
+  children?: React.ReactNode;
+  onClick?: () => void; // onClick 핸들러 추가
+  isCloseBtn?: boolean; // CloseBtn 여부 확인
 };
 
 const Button = ({
   color = "primary",
   variant = "solid",
   children,
+  onClick,
+  isCloseBtn = false,
 }: ButtonProps) => {
+  if (isCloseBtn) {
+    return <CloseBtn onClick={onClick}>{children}</CloseBtn>;
+  }
+
   return (
-    <StyledButton color={color} variant={variant}>
+    <StyledButton color={color} variant={variant} onClick={onClick}>
       {children}
     </StyledButton>
   );
@@ -102,6 +111,34 @@ const StyledButton = styled.button<ButtonProps>`
   &:disabled {
     background-color: #e0e0e0;
     color: #a0a0a0;
+    cursor: not-allowed;
+  }
+`;
+
+// CloseBtn 스타일링
+const CloseBtn = styled.button`
+  width: 30px;
+  height: 30px;
+  background: url(${CloseBtnImage}) #fff no-repeat;
+  background-size: 30px;
+  cursor: pointer;
+  border: none;
+  display: block;
+  position: absolute;
+  top: -12px;
+  right: -12px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+
+  &:disabled {
+    opacity: 0.3;
     cursor: not-allowed;
   }
 `;
