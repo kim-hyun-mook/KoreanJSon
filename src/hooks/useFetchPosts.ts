@@ -10,7 +10,7 @@ export const useFetchPosts = () => {
   return useQuery<Post[]>("posts", async () => {
     const response = await fetch("https://koreanjson.com/posts");
     if (!response.ok) {
-      throw new Error("Error fetching posts");
+      throw new Error("Error");
     }
     return response.json();
   });
@@ -22,7 +22,7 @@ export const useFetchPostById = (id: string) => {
     async () => {
       const response = await fetch(`https://koreanjson.com/posts/${id}`);
       if (!response.ok) {
-        throw new Error("Error fetching post");
+        throw new Error("Error");
       }
       const data = await response.json();
       return {
