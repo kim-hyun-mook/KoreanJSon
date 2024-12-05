@@ -16,15 +16,17 @@ export const ListStyle = styled.ul`
     margin-bottom: 50px;
     position: relative;
   }
-  &:first-child {
-    margin-right: 0;
-  }
-  & > li > h2 {
+
+  & li > div > h2 {
     font-size: 14px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
     width: 100%;
+  }
+
+  &:first-child {
+    margin-right: 0;
   }
 `;
 

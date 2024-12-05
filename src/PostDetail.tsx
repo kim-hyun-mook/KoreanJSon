@@ -58,8 +58,8 @@ const PostDetail: React.FC = () => {
     <DetailStyle>
       <h1>{selectedPost?.title || post?.title}</h1>
       <p>{selectedPost?.content || post?.content}</p>
-      <p>Post ID: {id}</p> {/* ID 값 표시 */}
-      <p>{indexMessage}</p> {/* 몇 번째 게시글인지 표시 */}
+      <p>Post ID: {id}</p>
+      <p>{indexMessage}</p>
     </DetailStyle>
   );
 };
