@@ -1,23 +1,37 @@
+import { useQuery } from "react-query";
+
 export interface Post {
   id: number;
   title: string;
   content?: string;
 }
 
-/*모든 게시글 데이터를 가져오는 함수*/
-export const fetchPosts = async (): Promise<Post[]> => {
-  const response = await fetch("https://koreanjson.com/posts");
-  if (!response.ok) {
-    throw new Error("Failed to fetch posts");
-  }
-  return response.json();
+export const useFetchPosts = () => {
+  return useQuery<Post[]>("posts", async () => {
+    const response = await fetch("https://koreanjson.com/posts");
+    if (!response.ok) {
+      throw new Error("Error fetching posts");
+    }
+    return response.json();
+  });
 };
 
-/*특정 ID의 게시글 데이터를 가져오는 함수*/
-export const fetchPostById = async (id: string): Promise<Post> => {
-  const response = await fetch(`https://koreanjson.com/posts/${id}`);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch post with id ${id}`);
-  }
-  return response.json();
+export const useFetchPostById = (id: string) => {
+  return useQuery<Post>(
+    ["post", id],
+    async () => {
+      const response = await fetch(`https://koreanjson.com/posts/${id}`);
+      if (!response.ok) {
+        throw new Error("Error fetching post");
+      }
+      const data = await response.json();
+      return {
+        ...data,
+        content: data.content || "", // content가 undefined일 경우 빈 문자열로 처리
+      };
+    },
+    {
+      enabled: !!id, // id가 존재할 때만 요청
+    }
+  );
 };
